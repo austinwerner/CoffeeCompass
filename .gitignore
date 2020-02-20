@@ -12,3 +12,5 @@
 /captures
 .externalNativeBuild
 .cxx
+app/src/main/java/util/PrivateConstants.java
+app/src/main/java/com/werner/coffeecompass/util/PrivateConstants.java
