@@ -1,6 +1,5 @@
 package com.werner.coffeecompass.requests;
 
-import android.location.Location;
 import android.util.Log;
 
 import com.werner.coffeecompass.executors.AppExecutor;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
@@ -57,6 +55,11 @@ public class CafesApiClient {
     public void clearNextPage() {
 
         mNextPage = "";
+        mMoreData = true;
+    }
+
+    public boolean isMoreData() {
+        return mMoreData;
     }
 
     public void updateCafes(String location) {
@@ -106,6 +109,10 @@ public class CafesApiClient {
                         mCafes.postValue(currentCafes);
                     }
                     mNextPage = ((CafesResponse)response.body()).getNextPage();
+                    if (mNextPage == null) {
+                        mNextPage = "";
+                        mMoreData = false;
+                    }
 
                 } else {
                     mCafes.postValue(null);

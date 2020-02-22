@@ -1,5 +1,7 @@
 package com.werner.coffeecompass.repositories;
 
+import android.location.Location;
+
 import com.werner.coffeecompass.models.Places;
 import com.werner.coffeecompass.requests.CafesApiClient;
 
@@ -32,22 +34,26 @@ public class CafeRepository {
         return mCafeApiClient.getCafes();
     }
 
-    public void updateCafeLocation() {
+    public void updateCafeLocation(String aLocation) {
 
-        String fairway = "39.036700,-94.624039";
-        String downtown = "39.090314,-94.581999";
-        mLocation = downtown;
+        mLocation = aLocation;
         mCafeApiClient.clearNextPage();
-        mCafeApiClient.updateCafes(downtown);
+        mCafeApiClient.updateCafes(mLocation);
     }
 
-    public void getMoreCafes() {
+    public boolean getMoreCafes() {
 
-        if (!prevSearchCheck()) {
-            updateCafeLocation();
+        // looking for more, but out of data
+        if( !mCafeApiClient.isMoreData() ) {
+            return false;
         }
 
-        mCafeApiClient.updateCafes(mLocation);
+        // we have a location, get more data
+        if (prevSearchCheck()) {
+            mCafeApiClient.updateCafes(mLocation);
+        }
+
+        return true;
     }
 
     private boolean prevSearchCheck() {

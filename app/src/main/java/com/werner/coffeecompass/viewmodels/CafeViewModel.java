@@ -1,9 +1,10 @@
 package com.werner.coffeecompass.viewmodels;
 
+import android.location.Location;
+import android.util.Log;
+
 import com.werner.coffeecompass.models.Places;
 import com.werner.coffeecompass.repositories.CafeRepository;
-import com.werner.coffeecompass.requests.CafesApiClient;
-import com.werner.coffeecompass.requests.responses.CafesResponse;
 
 import java.util.List;
 
@@ -12,10 +13,11 @@ import androidx.lifecycle.ViewModel;
 
 public class CafeViewModel extends ViewModel {
 
+    private static final String TAG = "CafeViewModel";
+
     private CafeRepository mRepository;
 
     public CafeViewModel() {
-
         mRepository = CafeRepository.getInstance();
     }
 
@@ -24,13 +26,19 @@ public class CafeViewModel extends ViewModel {
         return mRepository.getCafes();
     }
 
-    public void updateCafeLocation() {
 
-        mRepository.updateCafeLocation();
+    public void updateCafeLocation(Location aLocation) {
+
+        String locationString = aLocation.getLatitude() + "," + aLocation.getLongitude();
+        mRepository.updateCafeLocation(locationString);
     }
 
     public void getMoreCafes() {
 
-        mRepository.getMoreCafes();
+        if( mRepository.getMoreCafes()) {
+            Log.d(TAG, "Getting more data");
+        } else {
+            Log.d(TAG, "no more data available");
+        };
     }
 }
