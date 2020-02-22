@@ -26,7 +26,9 @@ public class CafesApiClient {
 
     private static CafesApiClient instance;
     private MutableLiveData<List<Places>> mCafes;
+    private String mNextPage;
     private RetrieveCafesRunnable mRetrieveCafesRunnable;
+    private boolean mMoreData;
 
     public static CafesApiClient getInstance() {
 
@@ -39,6 +41,7 @@ public class CafesApiClient {
     private CafesApiClient() {
 
         mCafes = new MutableLiveData<>();
+        mMoreData = true;
     }
 
     public LiveData<List<Places>> getCafes() {
@@ -46,13 +49,23 @@ public class CafesApiClient {
         return mCafes;
     }
 
-    public void updateCafes() {
+    public String getNextPage() {
+
+        return mNextPage;
+    }
+
+    public void clearNextPage() {
+
+        mNextPage = "";
+    }
+
+    public void updateCafes(String location) {
 
         if (mRetrieveCafesRunnable != null) {
             mRetrieveCafesRunnable = null;
         }
 
-        mRetrieveCafesRunnable = new RetrieveCafesRunnable();
+        mRetrieveCafesRunnable = new RetrieveCafesRunnable(location);
         final Future handler = AppExecutor.get().networkIO().submit(mRetrieveCafesRunnable);
 
         // Set a timeout for the data refresh
@@ -67,7 +80,11 @@ public class CafesApiClient {
 
     private class RetrieveCafesRunnable implements Runnable {
 
-        private RetrieveCafesRunnable() {
+        String mLocation;
+
+        private RetrieveCafesRunnable(String location) {
+
+            this.mLocation = location;
         }
 
         @Override
@@ -80,21 +97,15 @@ public class CafesApiClient {
                 if (response.code() == 200) {
                     List<Places> list = new ArrayList<>(((CafesResponse)response.body()).getCafes());
 
-                    /*
-                    if (mPageToken.isEmpty()) {
+                    if (mNextPage.isEmpty()) {
                         mCafes.postValue(list);
-                        Log.d(TAG, mCafes.toString() );
-                        //mPageToken = ((CafesResponse)response.body()).getNextPage();
                     } else {
                         // After the first page, append to the list
                         List<Places> currentCafes = mCafes.getValue();
                         currentCafes.addAll(list);
                         mCafes.postValue(currentCafes);
                     }
-
-                     */
-                    mCafes.postValue(list);
-                    Log.d(TAG, "Size = " + list.size());
+                    mNextPage = ((CafesResponse)response.body()).getNextPage();
 
                 } else {
                     mCafes.postValue(null);
@@ -108,24 +119,12 @@ public class CafesApiClient {
 
         private Call<CafesResponse> getCafes() {
 
-            /*
-            return ServiceGenerator.getCafeApi().getCafes(
-                    PrivateConstants.API_KEY,
-                    location.getLatitude() + "," + location.getLongitude(),
-                    Constants.RANKBY,
-                    Constants.TYPE,
-                    pagetoken);
-
-             */
-
-            String fairway = "39.036700,-94.624039";
-            String downtown = "39.090314,-94.581999";
             return ServiceGenerator.getCafeApi().getCafeResponse(
                     PrivateConstants.API_KEY,
-                    fairway,
+                    mLocation,
                     Constants.RANKBY,
                     Constants.TYPE,
-                    "");
+                    mNextPage );
         }
     }
 }

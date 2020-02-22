@@ -24,8 +24,13 @@ public class CafeViewModel extends ViewModel {
         return mRepository.getCafes();
     }
 
-    public void updateCafes() {
+    public void updateCafeLocation() {
 
-        mRepository.updateCafes();
+        mRepository.updateCafeLocation();
+    }
+
+    public void getMoreCafes() {
+
+        mRepository.getMoreCafes();
     }
 }

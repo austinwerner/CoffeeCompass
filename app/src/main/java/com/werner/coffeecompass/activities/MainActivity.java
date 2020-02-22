@@ -25,21 +25,24 @@ public class MainActivity extends AppCompatActivity {
         findViewById( R.id.button ).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateCafes();
+                mCafeViewModel.updateCafeLocation();
             }
         });
 
         findViewById( R.id.button2 ).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCafeViewModel.getMoreCafes();
+            }
+        });
+
+        findViewById( R.id.button3 ).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 showData();
             }
         });
 
-    }
-
-    private void updateCafes() {
-        mCafeViewModel.updateCafes();
     }
 
     private void showData() {

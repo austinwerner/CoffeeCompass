@@ -16,7 +16,6 @@ public class CafesResponse {
         return mCafes;
     }
 
-    /*
     @SerializedName("next_page_token")
     @Expose
     private String mNextPage;
@@ -32,5 +31,4 @@ public class CafesResponse {
                 ", mNextPage='" + mNextPage + '\'' +
                 '}';
     }
-     */
 }
