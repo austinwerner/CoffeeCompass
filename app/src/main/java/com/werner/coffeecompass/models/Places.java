@@ -3,36 +3,38 @@ package com.werner.coffeecompass.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Arrays;
+
 public class Places implements Parcelable {
 
     private String name;
     private OpeningHours opening_hours;
-    private Photos photos;
+    private Photos[] photos;
     private float rating;
     private int price_level;
-    private Location location;
+    private Geometry geometry;
     private String vicinity;
 
-    public Places(String name, OpeningHours opening_hours, Photos photos, float rating, int price_level, Location location, String vicinity) {
+    public Places() {
+    }
+
+    public Places(String name, OpeningHours opening_hours, Photos[] photos, float rating, int price_level, Geometry geometry, String vicinity) {
         this.name = name;
         this.opening_hours = opening_hours;
         this.photos = photos;
         this.rating = rating;
         this.price_level = price_level;
-        this.location = location;
+        this.geometry = geometry;
         this.vicinity = vicinity;
-    }
-
-    public Places() {
     }
 
     protected Places(Parcel in) {
         name = in.readString();
         opening_hours = in.readParcelable(OpeningHours.class.getClassLoader());
-        photos = in.readParcelable(Photos.class.getClassLoader());
+        photos = in.createTypedArray(Photos.CREATOR);
         rating = in.readFloat();
         price_level = in.readInt();
-        location = in.readParcelable(Location.class.getClassLoader());
+        geometry = in.readParcelable(Geometry.class.getClassLoader());
         vicinity = in.readString();
     }
 
@@ -64,11 +66,11 @@ public class Places implements Parcelable {
         this.opening_hours = opening_hours;
     }
 
-    public Photos getPhotos() {
+    public Photos[] getPhotos() {
         return photos;
     }
 
-    public void setPhotos(Photos photos) {
+    public void setPhotos(Photos[] photos) {
         this.photos = photos;
     }
 
@@ -88,12 +90,12 @@ public class Places implements Parcelable {
         this.price_level = price_level;
     }
 
-    public Location getLocation() {
-        return location;
+    public Geometry getGeometry() {
+        return geometry;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setGeometry(Geometry geometry) {
+        this.geometry = geometry;
     }
 
     public String getVicinity() {
@@ -109,10 +111,10 @@ public class Places implements Parcelable {
         return "Places{" +
                 "name='" + name + '\'' +
                 ", opening_hours=" + opening_hours +
-                ", photos=" + photos +
+                ", photos=" + Arrays.toString(photos) +
                 ", rating=" + rating +
                 ", price_level=" + price_level +
-                ", location=" + location +
+                ", geometry=" + geometry +
                 ", vicinity='" + vicinity + '\'' +
                 '}';
     }
@@ -126,10 +128,10 @@ public class Places implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeParcelable(opening_hours, i);
-        parcel.writeParcelable(photos, i);
+        parcel.writeTypedArray(photos, i);
         parcel.writeFloat(rating);
         parcel.writeInt(price_level);
-        parcel.writeParcelable(location, i);
+        parcel.writeParcelable(geometry, i);
         parcel.writeString(vicinity);
     }
 }

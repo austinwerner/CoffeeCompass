@@ -25,4 +25,31 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    def retrofitVersion = '2.4.0'
+    def lifecycleVersion = '2.2.0'
+    def androidxVersion = '1.0.0'
+    def glideVersion = '4.8.0'
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+
+    // retrofit gson converter
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // live data and view model
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+
+    // card view
+    implementation "androidx.cardview:cardview:$androidxVersion"
+
+    // recycler view
+    implementation "androidx.recyclerview:recyclerview:$androidxVersion"
+
+    // support design
+    implementation "com.google.android.material:material:$androidxVersion"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 }

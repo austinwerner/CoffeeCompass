@@ -6,11 +6,11 @@ import android.os.Parcelable;
 public class Location implements Parcelable {
 
     private float lat;
-    private float lon;
+    private float lng;
 
-    public Location(float lat, float lon) {
+    public Location(float lat, float lng) {
         this.lat = lat;
-        this.lon = lon;
+        this.lng = lng;
     }
 
     public Location() {
@@ -18,7 +18,7 @@ public class Location implements Parcelable {
 
     protected Location(Parcel in) {
         lat = in.readFloat();
-        lon = in.readFloat();
+        lng = in.readFloat();
     }
 
     public static final Creator<Location> CREATOR = new Creator<Location>() {
@@ -41,19 +41,19 @@ public class Location implements Parcelable {
         this.lat = lat;
     }
 
-    public float getLon() {
-        return lon;
+    public float getLng() {
+        return lng;
     }
 
-    public void setLon(float lon) {
-        this.lon = lon;
+    public void setLng(float lng) {
+        this.lng = lng;
     }
 
     @Override
     public String toString() {
         return "Location{" +
                 "lat=" + lat +
-                ", lon=" + lon +
+                ", lng=" + lng +
                 '}';
     }
 
@@ -65,6 +65,6 @@ public class Location implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeFloat(lat);
-        parcel.writeFloat(lon);
+        parcel.writeFloat(lng);
     }
 }
