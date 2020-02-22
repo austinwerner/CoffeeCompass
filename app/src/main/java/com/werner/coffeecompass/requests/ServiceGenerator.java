@@ -19,4 +19,11 @@ public class ServiceGenerator {
     public static CafesApi getCafeApi(){
         return cafesApi;
     }
+
+    private static DetailsApi detailsApi = retrofit.create(DetailsApi.class);
+
+    public static DetailsApi getDetailsApi(){
+        return detailsApi;
+    }
+
 }

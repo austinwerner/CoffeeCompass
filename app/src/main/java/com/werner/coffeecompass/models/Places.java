@@ -14,11 +14,12 @@ public class Places implements Parcelable {
     private int price_level;
     private Geometry geometry;
     private String vicinity;
+    private String place_id;
 
     public Places() {
     }
 
-    public Places(String name, OpeningHours opening_hours, Photos[] photos, float rating, int price_level, Geometry geometry, String vicinity) {
+    public Places(String name, OpeningHours opening_hours, Photos[] photos, float rating, int price_level, Geometry geometry, String vicinity, String place_id) {
         this.name = name;
         this.opening_hours = opening_hours;
         this.photos = photos;
@@ -26,6 +27,7 @@ public class Places implements Parcelable {
         this.price_level = price_level;
         this.geometry = geometry;
         this.vicinity = vicinity;
+        this.place_id = place_id;
     }
 
     protected Places(Parcel in) {
@@ -36,6 +38,7 @@ public class Places implements Parcelable {
         price_level = in.readInt();
         geometry = in.readParcelable(Geometry.class.getClassLoader());
         vicinity = in.readString();
+        place_id = in.readString();
     }
 
     public static final Creator<Places> CREATOR = new Creator<Places>() {
@@ -106,17 +109,12 @@ public class Places implements Parcelable {
         this.vicinity = vicinity;
     }
 
-    @Override
-    public String toString() {
-        return "Places{" +
-                "name='" + name + '\'' +
-                ", opening_hours=" + opening_hours +
-                ", photos=" + Arrays.toString(photos) +
-                ", rating=" + rating +
-                ", price_level=" + price_level +
-                ", geometry=" + geometry +
-                ", vicinity='" + vicinity + '\'' +
-                '}';
+    public String getPlace_id() {
+        return place_id;
+    }
+
+    public void setPlace_id(String place_id) {
+        this.place_id = place_id;
     }
 
     @Override
@@ -133,5 +131,20 @@ public class Places implements Parcelable {
         parcel.writeInt(price_level);
         parcel.writeParcelable(geometry, i);
         parcel.writeString(vicinity);
+        parcel.writeString(place_id);
+    }
+
+    @Override
+    public String toString() {
+        return "Places{" +
+                "name='" + name + '\'' +
+                ", opening_hours=" + opening_hours +
+                ", photos=" + Arrays.toString(photos) +
+                ", rating=" + rating +
+                ", price_level=" + price_level +
+                ", geometry=" + geometry +
+                ", vicinity='" + vicinity + '\'' +
+                ", place_id='" + place_id + '\'' +
+                '}';
     }
 }
