@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:shadowDx="30"
+    android:shadowDy="60"
+    android:shadowRadius="80"
+    app:contentPaddingBottom="2dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="4dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardCornerRadius="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cafe_image_height"
+            android:contentDescription="Cafe Image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_cup_of_coffee_"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            android:textColor="@color/titleColor"
+            android:text="Coffee"
+            android:textStyle="bold"
+            android:textSize="@dimen/cafe_title_text_size"
+            android:padding="8dp"
+            android:background="@color/textBackground"
+            android:shadowColor="@color/textBackground"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="0.1"/>
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:textSize="@dimen/cafe_detail_text_size"
+            android:textColor="@color/detailColor"
+            android:text="1234 Main Street"/>
+
+        <ImageView
+            android:id="@+id/stars"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address" />
+
+        <ImageView
+            android:id="@+id/price"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stars" />
+
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/address"
+            android:gravity="center"
+            android:textSize="@dimen/cafe_detail_text_size"
+            android:textColor="@color/detailColor"
+            android:text="2.4 miles"/>
+
+        <ImageView
+            android:id="@+id/open"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_open"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

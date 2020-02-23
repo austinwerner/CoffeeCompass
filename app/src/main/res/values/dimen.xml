@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cafe_image_height">250dp</dimen>
+    <dimen name="cafe_title_text_size">30sp</dimen>
+    <dimen name="cafe_detail_text_size">16sp</dimen>
+</resources>
