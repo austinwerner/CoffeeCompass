@@ -3,6 +3,8 @@ package com.werner.coffeecompass.repositories;
 import com.werner.coffeecompass.models.Detail;
 import com.werner.coffeecompass.requests.DetailsApiClient;
 
+import androidx.lifecycle.LiveData;
+
 public class DetailsRepository {
 
     private static DetailsRepository instance;
@@ -21,7 +23,7 @@ public class DetailsRepository {
         mDetailsApiClient = DetailsApiClient.getInstance();
     }
 
-    public Detail getDetail() {
+    public LiveData<Detail> getDetail() {
         return mDetailsApiClient.getDetail();
     }
 

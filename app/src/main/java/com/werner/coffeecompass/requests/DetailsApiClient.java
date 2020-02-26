@@ -6,9 +6,12 @@ import com.werner.coffeecompass.requests.responses.DetailsResponse;
 import com.werner.coffeecompass.util.Constants;
 import com.werner.coffeecompass.util.PrivateConstants;
 
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -19,7 +22,7 @@ public class DetailsApiClient {
     public static final String TAG = "CafesApiClient";
 
     private static DetailsApiClient instance;
-    private Detail mDetails;
+    private MutableLiveData<Detail> mDetails;
     private RetrieveDetailsRunnable mRetrieveDetailsRunnable;
 
     public static DetailsApiClient getInstance() {
@@ -32,10 +35,10 @@ public class DetailsApiClient {
 
     private DetailsApiClient() {
 
-        mDetails = new Detail();
+        mDetails = new MutableLiveData<>();
     }
 
-    public Detail getDetail() {
+    public LiveData<Detail> getDetail() {
 
         return mDetails;
     }
@@ -76,13 +79,14 @@ public class DetailsApiClient {
 
                 // Success code
                 if (response.code() == 200) {
-                    mDetails = ((DetailsResponse)response.body()).getDetails();
+                    Detail detail = ((DetailsResponse)response.body()).getDetails();
+                    mDetails.postValue(detail);
                 } else {
-                    mDetails = null;
+                    mDetails.postValue(null);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                mDetails = null;
+                mDetails.postValue(null);
             }
         }
 

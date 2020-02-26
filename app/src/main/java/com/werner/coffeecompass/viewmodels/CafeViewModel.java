@@ -41,4 +41,8 @@ public class CafeViewModel extends ViewModel {
             Log.d(TAG, "no more data available");
         };
     }
+
+    public String getCafePlaceId(int aPosition) {
+        return mRepository.getCafes().getValue().get(aPosition).getPlace_id();
+    }
 }

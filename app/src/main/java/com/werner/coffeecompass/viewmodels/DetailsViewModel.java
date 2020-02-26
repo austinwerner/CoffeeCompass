@@ -3,6 +3,7 @@ package com.werner.coffeecompass.viewmodels;
 import com.werner.coffeecompass.models.Detail;
 import com.werner.coffeecompass.repositories.DetailsRepository;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 public class DetailsViewModel extends ViewModel {
@@ -14,7 +15,7 @@ public class DetailsViewModel extends ViewModel {
         mDetailsRepository = DetailsRepository.getInstance();
     }
 
-    public Detail getDetail() {
+    public LiveData<Detail> getDetail() {
 
         return mDetailsRepository.getDetail();
     }

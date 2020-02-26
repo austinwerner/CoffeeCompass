@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements OnCafeClickListen
 
     @Override
     public void onCafeClick(int position) {
-        // Push the detail page
+        Intent intent = new Intent(this,PhotoActivity.class);
+        intent.putExtra(PhotoActivity.PHOTO_ID, mCafeViewModel.getCafePlaceId(position));
+        startActivity(intent);
     }
 }

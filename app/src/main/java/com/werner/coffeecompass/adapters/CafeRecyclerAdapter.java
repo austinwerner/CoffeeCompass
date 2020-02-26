@@ -1,18 +1,17 @@
 package com.werner.coffeecompass.adapters;
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.werner.coffeecompass.R;
 import com.werner.coffeecompass.models.Places;
 import com.werner.coffeecompass.util.Constants;
 import com.werner.coffeecompass.util.PrivateConstants;
-import com.werner.coffeecompass.viewmodels.CafeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +59,7 @@ public class CafeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Glide.with((holder).itemView)
                     .setDefaultRequestOptions(options)
                     .load(getPhotoUrl(mCafes.get(i).getPhotos()[0].getPhoto_reference()))
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(((CafeViewHolder) viewHolder).getmImage());
 
             holder.getmName().setText(mCafes.get(i).getName());
