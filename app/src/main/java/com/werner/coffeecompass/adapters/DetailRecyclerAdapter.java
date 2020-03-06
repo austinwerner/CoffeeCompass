@@ -77,6 +77,12 @@ public class DetailRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         notifyDataSetChanged();
     }
 
+    public void clearPhotos() {
+        int size = mPhotoIds.size();
+        mPhotoIds.clear();
+        notifyItemRangeRemoved(0, size);;
+    }
+
     // Formats reference ID for URL retrieval
     private String getPhotoUrl(String referenceId) {
         return String.format(Constants.BASE_PHOTO_URL, PrivateConstants.API_KEY, 300, referenceId);

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnCafeClickListen
     private FusedLocationProviderClient mFusedLocationClient;
     private RecyclerView mRecyclerView;
     private CafeRecyclerAdapter mAdapter;
+    private LottieAnimationView mAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements OnCafeClickListen
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mCafeViewModel = new ViewModelProvider(this).get(CafeViewModel.class);
+
+        mAnimation = findViewById(R.id.loadingAnimation);
 
         initRecyclerView();
         subscribeObservers();
@@ -69,6 +73,17 @@ public class MainActivity extends AppCompatActivity implements OnCafeClickListen
                     mAdapter.setCafes(cafes);
                 } else {
                     mAdapter.setCafes(null);
+                }
+            }
+        });
+
+        mCafeViewModel.isLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isLoading) {
+                if (isLoading) {
+                    mAnimation.setVisibility( View.VISIBLE );
+                } else {
+                    mAnimation.setVisibility( View.GONE );
                 }
             }
         });

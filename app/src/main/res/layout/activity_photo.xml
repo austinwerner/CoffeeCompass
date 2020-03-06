@@ -15,4 +15,17 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="64dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_weight="4"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/coffee_animation"
+        android:visibility="visible"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

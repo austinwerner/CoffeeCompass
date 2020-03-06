@@ -6,6 +6,7 @@ import com.werner.coffeecompass.requests.responses.DetailsResponse;
 import com.werner.coffeecompass.util.Constants;
 import com.werner.coffeecompass.util.PrivateConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +42,11 @@ public class DetailsApiClient {
     public LiveData<Detail> getDetail() {
 
         return mDetails;
+    }
+
+    public void clearDetails() {
+
+        mDetails.setValue(null);
     }
 
     public void requestDetails(String placeId) {

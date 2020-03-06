@@ -30,4 +30,8 @@ public class DetailsRepository {
     public void requestDetails(String placeId) {
         mDetailsApiClient.requestDetails(placeId);
     }
+
+    public void clearDetails() {
+        mDetailsApiClient.clearDetails();
+    }
 }

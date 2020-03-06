@@ -34,6 +34,11 @@ public class CafeRepository {
         return mCafeApiClient.getCafes();
     }
 
+    public LiveData<Boolean> isLoading() {
+
+        return mCafeApiClient.isLoading();
+    }
+
     public void updateCafeLocation(String aLocation) {
 
         mLocation = aLocation;

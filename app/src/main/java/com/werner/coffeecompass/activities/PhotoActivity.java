@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.werner.coffeecompass.R;
 import com.werner.coffeecompass.adapters.CafeRecyclerAdapter;
 import com.werner.coffeecompass.adapters.DetailRecyclerAdapter;
@@ -29,6 +30,7 @@ public class PhotoActivity extends AppCompatActivity {
     DetailsViewModel mDetailsViewModel;
     private DetailRecyclerAdapter mAdapter;
     private RecyclerView mRecyclerView;
+    private LottieAnimationView mAnimation;
 
 
     @Override
@@ -38,10 +40,10 @@ public class PhotoActivity extends AppCompatActivity {
 
         mDetailsViewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
 
+        mAnimation = findViewById(R.id.loadingAnimation2);
+
         initRecyclerView();
         subscribeObservers();
-
-        mAdapter.setPhotoIds(null);
 
         Intent intent = getIntent();
         String placeId = intent.getStringExtra(PHOTO_ID);
@@ -74,11 +76,19 @@ public class PhotoActivity extends AppCompatActivity {
                             photoIds.add(photo.getPhoto_reference());
                         }
                     }
+                    mAnimation.setVisibility(View.GONE);
                     mAdapter.setPhotoIds(photoIds);
                 } else {
+                    mAnimation.setVisibility(View.VISIBLE);
                     mAdapter.setPhotoIds(null);
                 }
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        mDetailsViewModel.clearDetails();
+        super.onStop();
     }
 }

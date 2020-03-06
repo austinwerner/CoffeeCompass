@@ -20,6 +20,11 @@ public class DetailsViewModel extends ViewModel {
         return mDetailsRepository.getDetail();
     }
 
+    public void clearDetails() {
+
+        mDetailsRepository.clearDetails();
+    }
+
     public void requestDetails(String placeId) {
         mDetailsRepository.requestDetails(placeId);
     }

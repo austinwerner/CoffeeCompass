@@ -26,6 +26,10 @@ public class CafeViewModel extends ViewModel {
         return mRepository.getCafes();
     }
 
+    public LiveData<Boolean> isLoading() {
+
+        return mRepository.isLoading();
+    }
 
     public void updateCafeLocation(Location aLocation) {
 

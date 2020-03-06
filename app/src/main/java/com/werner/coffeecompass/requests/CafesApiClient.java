@@ -27,6 +27,7 @@ public class CafesApiClient {
     private String mNextPage;
     private RetrieveCafesRunnable mRetrieveCafesRunnable;
     private boolean mMoreData;
+    private MutableLiveData<Boolean> mLoading;
 
     public static CafesApiClient getInstance() {
 
@@ -40,6 +41,9 @@ public class CafesApiClient {
 
         mCafes = new MutableLiveData<>();
         mMoreData = true;
+
+        mLoading = new MutableLiveData<>();
+        mLoading.setValue(true);
     }
 
     public LiveData<List<Places>> getCafes() {
@@ -47,8 +51,14 @@ public class CafesApiClient {
         return mCafes;
     }
 
+    public LiveData<Boolean> isLoading() {
+
+        return mLoading;
+    }
+
     public String getNextPage() {
 
+        mLoading.setValue(true);
         return mNextPage;
     }
 
@@ -64,6 +74,7 @@ public class CafesApiClient {
 
     public void updateCafes(String location) {
 
+        mLoading.setValue(true);
         if (mRetrieveCafesRunnable != null) {
             mRetrieveCafesRunnable = null;
         }
@@ -99,7 +110,7 @@ public class CafesApiClient {
                 // Success code
                 if (response.code() == 200) {
                     List<Places> list = new ArrayList<>(((CafesResponse)response.body()).getCafes());
-
+                    mLoading.postValue(false);
                     if (mNextPage.isEmpty()) {
                         mCafes.postValue(list);
                     } else {
@@ -116,10 +127,12 @@ public class CafesApiClient {
 
                 } else {
                     mCafes.postValue(null);
+                    mLoading.postValue(true);
                     Log.d(TAG,"failed to get stuff");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                mLoading.postValue(true);
                 mCafes.postValue(null);
             }
         }
